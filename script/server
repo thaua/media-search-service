@@ -2,4 +2,4 @@
 
 script/update
 
-docker run -it --rm -p 3000:3000 -v "$(pwd):/app" --name search-service-server search-service npm run start:dev
+docker run -it --env-file .env --rm -p 3000:3000 -v "$(pwd):/app" --name search-service-server search-service npm run start:dev

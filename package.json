@@ -13,7 +13,7 @@
     "start:dev": "nodemon --watch src -L --exec ts-node src/index.ts",
     "start:prod": "node dist/index.js",
     "test": "jest",
-    "prepare": "husky install"
+    "bootstrap": "husky install"
   },
   "author": "",
   "license": "ISC",

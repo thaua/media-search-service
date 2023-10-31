@@ -8,6 +8,11 @@ import type { Config } from 'jest';
 const config: Config = {
   clearMocks: true,
   collectCoverage: true,
+  "collectCoverageFrom": [
+    "src/**/*.{js,jsx,ts,tsx}",
+    "!**/*.interface.ts",
+    "!src/index.ts"
+  ],
   coverageDirectory: './coverage',
   coveragePathIgnorePatterns: ['/node_modules/'],
   coverageProvider: 'v8',
@@ -21,6 +26,8 @@ const config: Config = {
   },
   moduleNameMapper: {
     '@domain/(.*)': ['<rootDir>/src/domain/$1'],
+    '@application/(.*)': ['<rootDir>/src/application/$1'],
+    '@infrastructure/(.*)': ['<rootDir>/src/infrastructure/$1'],
   },
   preset: 'ts-jest',
   rootDir: '.'

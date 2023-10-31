@@ -1,4 +1,4 @@
 #!/bin/bash
 
-docker run -it --rm -v "$(pwd):/app" --name search-service-lint search-service npm run lint
-docker run -it --rm -v "$(pwd):/app" --name search-service-format search-service npm run format
+docker run -t --rm -v "$(pwd):/app" --name search-service-lint search-service npm run lint
+docker run -t --rm -v "$(pwd):/app" --name search-service-format search-service npm run format

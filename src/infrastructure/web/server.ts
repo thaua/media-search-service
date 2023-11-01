@@ -8,10 +8,13 @@ export default class Server {
   constructor(private readonly port: string) {}
 
   start(): void {
+    // TODO Implement route to use case adapter
     for (const route of Routes) {
       switch (route.method) {
         case 'get':
-          this.app.get(route.path, route.controller.handle);
+          this.app.get(route.path, (req, res) =>
+            route.controller.handle(req, res),
+          );
           break;
         default:
           throw Error('Invalid route.');

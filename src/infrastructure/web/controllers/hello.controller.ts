@@ -1,5 +1,6 @@
+// TODO Implement route to use case adapter
 export default class HelloController {
-  static handle(req: any, res: any) {
+  handle(req: any, res: any) {
     res.send('Hello!');
   }
 }

@@ -21,7 +21,7 @@ export class SearchMediaExpressController extends ExpressControllerTemplate<
 
     return this.searchMediaUseCase.search(
       request.params['provider'],
-      String(request.query['term']),
+      String(term),
     );
   }
 }

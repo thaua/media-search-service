@@ -1,4 +1,3 @@
-import { HttpResponseError } from '@presentation/response/http-response-error';
 import { RequiredFieldError } from '@presentation/exceptions/required-field.error';
 
 describe('RequiredFieldError', () => {

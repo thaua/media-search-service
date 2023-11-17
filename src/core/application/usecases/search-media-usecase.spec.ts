@@ -1,4 +1,3 @@
-import { MediaProviderType } from '@domain/media-provider.type';
 import Media from '@domain/media';
 import SearchMediaUseCase from './search-media-usecase';
 

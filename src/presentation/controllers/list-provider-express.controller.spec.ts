@@ -1,4 +1,3 @@
-import express from 'express';
 import ListProviderUseCase from '@application/usecases/list-provider-usecase';
 import { ListProviderExpressController } from '@presentation/controllers/list-provider-express.controller';
 

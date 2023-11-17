@@ -2,7 +2,7 @@
 
 This application is responsible for searching into media providers (such as YouTube, Spotify, etc) based on query string.
 
-This is a small part of a bigger private project.
+This is a small part of a bigger private personal project.
 
 ## Requirements
 

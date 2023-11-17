@@ -1,6 +1,12 @@
+<p align="center">
+<a href="https://codeclimate.com/github/thaua/media-search-service/maintainability"><img src="https://api.codeclimate.com/v1/badges/35ad034f85cf0f28c319/maintainability" /></a>
+<a href="https://codeclimate.com/github/thaua/media-search-service/test_coverage"><img src="https://api.codeclimate.com/v1/badges/35ad034f85cf0f28c319/test_coverage" /></a>
+</p>
+
 ## Description
 
-This application is responsible for searching into media providers (such as YouTube, Spotify, etc) based on query string.
+This application is responsible for searching into media providers (such as YouTube, Spotify, etc) based on query
+string.
 
 This is a small part of a bigger private personal project.
 
@@ -10,7 +16,8 @@ This is a small part of a bigger private personal project.
 
 ## Development
 
-We are using Docker with the [scripts-to-rule-them-all](https://github.com/github/scripts-to-rule-them-all) idea, so we have a set of scripts inside `script` folder that should cover all development needs:
+We are using Docker with the [scripts-to-rule-them-all](https://github.com/github/scripts-to-rule-them-all) idea, so we
+have a set of scripts inside `script` folder that should cover all development needs:
 
 ```bash
 $ script/setup    # builds application
@@ -24,6 +31,7 @@ $ script/bash     # access bash into container
 ## Architecture
 
 #### Application Flow
+
 ```mermaid
 flowchart TD
     USER[User]
@@ -51,13 +59,13 @@ flowchart TD
 - **infrastructure:** Infrastructure setup such as data providers, external connections and overall configuration.
 - **presentation:** Entrypoint with routing, controllers and REST API framework.
 
-
 ## Technical Details
 
 - Languages and runtimes: `JavaScript - TypeScript - Node.JS`;
 - Backend Framework: `ExpressJS`;
 - Architecture: `Backend Application - Clean Architecture - REST API`;
-- Methodologies, principles and practices: `Design Patterns - Test-Driven Development (TDD) - Clean Code - SOLID - YAGNI - KISS`.
+- Methodologies, principles and
+  practices: `Design Patterns - Test-Driven Development (TDD) - Clean Code - SOLID - YAGNI - KISS`.
 
 ## Stay in touch
 

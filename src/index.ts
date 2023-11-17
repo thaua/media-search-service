@@ -25,13 +25,6 @@ app.get('/provider/:provider/search', (req, res) =>
   searchMediaExpressController.handle(req, res),
 );
 
-// @ts-ignore
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-// app.use(function (err, req, res, next) {
-//   console.error(err.stack);
-//   res.status(500).send('Something broke!');
-// });
-
 app.listen(PORT, () => {
   console.info(`Server running at http://localhost:${PORT}`);
 });

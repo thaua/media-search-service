@@ -21,15 +21,9 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Install Coverage Reporter
-        run: npm install -g codeclimate-test-reporter
-
-      - name: Run Tests and Generate Coverage
-        run: npm test
-
-      - name: Upload Coverage to Code Climate
+      - name: Test & publish code coverage
+        uses: paambaati/codeclimate-action@v2.5.7
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
         run: |
-          ./cc-test-reporter format-coverage -t lcov ./coverage/lcov.info
-          ./cc-test-reporter upload-coverage
+          debug: true

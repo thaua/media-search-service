@@ -2,7 +2,7 @@
 
 This application is responsible for searching into media providers (such as YouTube, Spotify, etc) based on query string.
 
-This is a part of a bigger private project.
+This is a small part of a bigger private project.
 
 ## Requirements
 
@@ -34,7 +34,7 @@ flowchart TD
 
     subgraph External
         YT_API(Youtube Data API)
-        SF_API(Youtube Web API)
+        SF_API(Spotify Web API)
     end
 
     USER -->|"[REST] provider + term"| ENDPOINT

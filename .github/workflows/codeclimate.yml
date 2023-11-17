@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  test:
+  PublishTestAndCoverage:
     runs-on: ubuntu-latest
 
     steps:

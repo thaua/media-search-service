@@ -2,7 +2,7 @@ import Media from '@domain/media';
 import { MediaProviderType } from '@domain/media-provider.type';
 import MediaProviderStrategyFactory from '@application/factories/media-provider-strategy-factory';
 
-export default class SearchMediaUseCase implements SearchMediaUseCase {
+export default class SearchMediaUseCase {
   constructor(
     private readonly mediaProviderStrategyFactory: MediaProviderStrategyFactory,
   ) {}

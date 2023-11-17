@@ -6,6 +6,7 @@ import {
   searchMediaUseCase,
 } from '@infrastructure/bootstrap/usecases.bootstrap';
 import { ListProviderExpressController } from '@presentation/controllers/list-provider-express.controller';
+import { AppConfig } from '@infrastructure/data/app-config';
 
 export const listProviderExpressController = new ListProviderExpressController(
   listProviderUseCase,
@@ -13,9 +14,6 @@ export const listProviderExpressController = new ListProviderExpressController(
 export const searchMediaExpressController = new SearchMediaExpressController(
   searchMediaUseCase,
 );
-
-// TODO: Add config class to infrastructure
-const PORT = process.env.PORT || '3000';
 
 const app: core.Express = express();
 
@@ -26,6 +24,6 @@ app.get('/provider/:provider/search', (req, res) =>
   searchMediaExpressController.handle(req, res),
 );
 
-app.listen(PORT, () => {
-  console.info(`Server running at http://localhost:${PORT}`);
+app.listen(AppConfig.serverPort, () => {
+  console.info(`Server running at http://localhost:${AppConfig.serverPort}`);
 });

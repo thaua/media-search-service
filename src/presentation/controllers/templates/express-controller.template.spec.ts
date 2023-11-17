@@ -1,13 +1,15 @@
 import express from 'express';
-import { RequiredFieldError } from '@presentation/exceptions/required-field.error';
 import { HttpResponseError } from '@presentation/response/http-response-error';
 import { ExpressControllerTemplate } from '@presentation/controllers/templates/express-controller.template';
+import { UseCaseError } from '../../../core/exceptions/use-case.error';
 
 class MockExpressController extends ExpressControllerTemplate<any> {
   executeUseCase(): any {
     return {};
   }
 }
+
+class MockedUseCaseError extends UseCaseError {}
 
 describe('ExpressControllerTemplate', () => {
   let mockExpressController: MockExpressController;
@@ -31,19 +33,20 @@ describe('ExpressControllerTemplate', () => {
     expect(mockResponse.json).toHaveBeenCalled();
   });
 
-  it('should handle RequiredFieldError and return a 400 response', () => {
-    const requiredFieldError = new RequiredFieldError('exampleField');
+  it('should handle UseCaseError and return a 400 response', () => {
+    const useCaseError = new MockedUseCaseError();
+
     jest
       .spyOn(mockExpressController, 'executeUseCase')
       .mockImplementation(() => {
-        throw requiredFieldError;
+        throw useCaseError;
       });
 
     mockExpressController.handle(mockRequest, mockResponse);
 
     expect(mockResponse.status).toHaveBeenCalledWith(400);
     expect(mockResponse.json).toHaveBeenCalledWith(
-      new HttpResponseError(`Query param 'exampleField' is missing.`),
+      new HttpResponseError(useCaseError),
     );
   });
 
@@ -59,7 +62,7 @@ describe('ExpressControllerTemplate', () => {
 
     expect(mockResponse.status).toHaveBeenCalledWith(500);
     expect(mockResponse.json).toHaveBeenCalledWith(
-      new HttpResponseError('Internal Server Error.'),
+      new HttpResponseError(new Error('Internal Server Error.')),
     );
     expect(console.error).toHaveBeenCalledWith(otherError);
   });

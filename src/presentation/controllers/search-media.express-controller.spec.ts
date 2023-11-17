@@ -2,7 +2,6 @@ import { SearchMediaExpressController } from '@presentation/controllers/search-m
 import SearchMediaUseCase from '@application/usecases/search-media-usecase';
 import express from 'express';
 import { MediaProviderType } from '@domain/media-provider.type';
-import { RequiredFieldError } from '@presentation/exceptions/required-field.error';
 
 describe('SearchMediaExpressController', () => {
   const mockedSearchMediaUseCase = {

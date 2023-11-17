@@ -1,3 +1,3 @@
 export class HttpResponseError {
-  constructor(private readonly error: string) {}
+  constructor(private readonly error: Error) {}
 }

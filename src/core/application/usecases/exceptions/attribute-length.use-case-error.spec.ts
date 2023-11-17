@@ -8,7 +8,7 @@ describe('AttributeLengthUseCaseError', () => {
     const error = new AttributeLengthUseCaseError(field, minLength);
 
     expect(error.message).toBe(
-      `'${field}' attribute must have at least ${minLength} characters.`,
+      `The '${field}' attribute must have at least ${minLength} characters.`,
     );
     expect(error.field).toBe(field);
     expect(error.minLength).toBe(minLength);
@@ -23,7 +23,7 @@ describe('AttributeLengthUseCaseError', () => {
     const error = new AttributeLengthUseCaseError(field, minLength, maxLength);
 
     expect(error.message).toBe(
-      `'${field}' attribute's length must be between ${minLength} and ${maxLength} characters.`,
+      `The '${field}' attribute's length must be between ${minLength} and ${maxLength} characters.`,
     );
     expect(error.field).toBe(field);
     expect(error.minLength).toBe(minLength);

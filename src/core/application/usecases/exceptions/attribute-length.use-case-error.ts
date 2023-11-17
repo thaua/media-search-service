@@ -9,9 +9,9 @@ export class AttributeLengthUseCaseError extends UseCaseError {
     let errorMessage: string;
 
     if (!maxLength) {
-      errorMessage = `'${field}' attribute must have at least ${minLength} characters.`;
+      errorMessage = `The '${field}' attribute must have at least ${minLength} characters.`;
     } else {
-      errorMessage = `'${field}' attribute's length must be between ${minLength} and ${maxLength} characters.`;
+      errorMessage = `The '${field}' attribute's length must be between ${minLength} and ${maxLength} characters.`;
     }
 
     super(errorMessage);

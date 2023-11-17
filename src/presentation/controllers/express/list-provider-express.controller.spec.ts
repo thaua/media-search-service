@@ -1,5 +1,5 @@
 import ListProviderUseCase from '@application/usecases/list-provider-usecase';
-import { ListProviderExpressController } from '@presentation/controllers/list-provider-express.controller';
+import { ListProviderExpressController } from '@presentation/controllers/express/list-provider-express.controller';
 
 describe('ListProviderExpressController', () => {
   const mockedListProviderUseCase = {

@@ -1,5 +1,5 @@
 import ListProviderUseCase from '@application/usecases/list-provider-usecase';
-import { ExpressControllerTemplate } from '@presentation/controllers/templates/express-controller.template';
+import { ExpressControllerTemplate } from '@presentation/templates/express-controller.template';
 
 export class ListProviderExpressController extends ExpressControllerTemplate<
   string[]

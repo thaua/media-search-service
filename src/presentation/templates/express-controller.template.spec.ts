@@ -1,7 +1,7 @@
 import express from 'express';
 import { HttpResponseError } from '@presentation/response/http-response-error';
-import { ExpressControllerTemplate } from '@presentation/controllers/templates/express-controller.template';
-import { UseCaseError } from '../../../core/exceptions/use-case.error';
+import { ExpressControllerTemplate } from '@presentation/templates/express-controller.template';
+import { UseCaseError } from '../../core/exceptions/use-case.error';
 
 class MockExpressController extends ExpressControllerTemplate<any> {
   executeUseCase(): any {
@@ -34,7 +34,7 @@ describe('ExpressControllerTemplate', () => {
   });
 
   it('should handle UseCaseError and return a 400 response', () => {
-    const useCaseError = new MockedUseCaseError();
+    const useCaseError = new MockedUseCaseError('Error message');
 
     jest
       .spyOn(mockExpressController, 'executeUseCase')
@@ -62,7 +62,7 @@ describe('ExpressControllerTemplate', () => {
 
     expect(mockResponse.status).toHaveBeenCalledWith(500);
     expect(mockResponse.json).toHaveBeenCalledWith(
-      new HttpResponseError(new Error('Internal Server Error.')),
+      new HttpResponseError({ message: 'Internal Server Error.' } as Error),
     );
     expect(console.error).toHaveBeenCalledWith(otherError);
   });

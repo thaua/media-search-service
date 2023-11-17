@@ -1,11 +1,11 @@
 import * as core from 'express-serve-static-core';
 import express from 'express';
-import { SearchMediaExpressController } from '@presentation/controllers/search-media.express-controller';
+import { SearchMediaExpressController } from '@presentation/controllers/express/search-media.express-controller';
 import {
   listProviderUseCase,
   searchMediaUseCase,
 } from '@infrastructure/bootstrap/usecases.bootstrap';
-import { ListProviderExpressController } from '@presentation/controllers/list-provider-express.controller';
+import { ListProviderExpressController } from '@presentation/controllers/express/list-provider-express.controller';
 import { AppConfig } from '@infrastructure/data/app-config';
 
 export const listProviderExpressController = new ListProviderExpressController(

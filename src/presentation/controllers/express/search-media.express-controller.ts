@@ -1,6 +1,6 @@
 import express from 'express';
 import SearchMediaUseCase from '@application/usecases/search-media-usecase';
-import { ExpressControllerTemplate } from '@presentation/controllers/templates/express-controller.template';
+import { ExpressControllerTemplate } from '@presentation/templates/express-controller.template';
 import Media from '@domain/media';
 
 export class SearchMediaExpressController extends ExpressControllerTemplate<

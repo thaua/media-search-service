@@ -38,12 +38,12 @@ describe('SearchMediaUseCase', () => {
           mockedMediaProviderStrategyFactory.createProvider.mockReturnValue(null);
         });
 
-        it('should throw InvalidProviderUseCaseError', () => {
+        it('should throw InvalidProviderUseCaseError', async () => {
           const mockedInvalidProvider = 'invalidProvider';
 
-          expect(() => {
-            searchMediaUseCase.search(mockedInvalidProvider, '123');
-          }).toThrowError(new InvalidProviderUseCaseError(mockedInvalidProvider));
+          return expect(async () => {
+            await searchMediaUseCase.search(mockedInvalidProvider, '123');
+          }).rejects.toThrowError(new InvalidProviderUseCaseError(mockedInvalidProvider));
         });
       });
 
@@ -52,10 +52,10 @@ describe('SearchMediaUseCase', () => {
           mockedMediaSearchProvider.search.mockReturnValue(null);
         });
 
-        it('should throw RequiredAttributeUseCaseError', () => {
-          expect(() => {
-            searchMediaUseCase.search(provider, null as unknown as string);
-          }).toThrowError(new RequiredAttributeUseCaseError('term'));
+        it('should throw RequiredAttributeUseCaseError', async () => {
+          return expect(async () => {
+            await searchMediaUseCase.search(provider, null as unknown as string);
+          }).rejects.toThrowError(new RequiredAttributeUseCaseError('term'));
         });
       });
 
@@ -64,10 +64,10 @@ describe('SearchMediaUseCase', () => {
           mockedMediaSearchProvider.search.mockReturnValue(null);
         });
 
-        it('should throw AttributeLengthUseCaseError', () => {
-          expect(() => {
-            searchMediaUseCase.search(provider, '12');
-          }).toThrowError(new AttributeLengthUseCaseError('term', AppConfig.minSearchTerm));
+        it('should throw AttributeLengthUseCaseError', async () => {
+          return expect(async () => {
+            await searchMediaUseCase.search(provider, '12');
+          }).rejects.toThrowError(new AttributeLengthUseCaseError('term', AppConfig.minSearchTerm));
         });
       });
     });
@@ -78,9 +78,9 @@ describe('SearchMediaUseCase', () => {
 
       let result: Media[];
 
-      beforeEach(() => {
+      beforeEach(async () => {
         mockedMediaSearchProvider.search.mockReturnValue(mockedMedia);
-        result = searchMediaUseCase.search(provider, term);
+        result = await searchMediaUseCase.search(provider, term);
       });
 
       it('calls the createProvider method with the correct arguments', () => {

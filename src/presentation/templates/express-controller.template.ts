@@ -4,9 +4,9 @@ import { HttpResponseError } from '@presentation/response/http-response-error';
 import { UseCaseError } from '../../core/exceptions/use-case.error';
 
 export abstract class ExpressControllerTemplate<T> implements Controller {
-  handle(request: express.Request, response: express.Response): void {
+  async handle(request: express.Request, response: express.Response): Promise<void> {
     try {
-      response.json(this.executeUseCase(request));
+      response.json(await this.executeUseCase(request));
     } catch (e) {
       if (e instanceof UseCaseError) {
         response.status(400).json(new HttpResponseError(e));

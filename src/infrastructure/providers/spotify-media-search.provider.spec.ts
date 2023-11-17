@@ -6,12 +6,12 @@ describe('SpotifyMediaSearchProvider', () => {
     console.info = jest.fn();
   });
 
-  it('returns empty result', () => {
+  it('returns empty result', async () => {
     const term = '';
 
     const provider = new SpotifyMediaSearchProvider({} as Config);
 
-    const result = provider.search(term);
+    const result = await provider.search(term);
 
     expect(result).toEqual([]);
   });

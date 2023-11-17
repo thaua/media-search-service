@@ -1,3 +1,3 @@
 export interface Controller {
-  handle(...args: any): void;
+  handle(...args: any): Promise<void>;
 }

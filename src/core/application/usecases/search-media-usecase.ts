@@ -13,7 +13,7 @@ export default class SearchMediaUseCase {
     private readonly mediaProviderStrategyFactory: MediaProviderStrategyFactory,
   ) {}
 
-  search(provider: MediaProviderType, term: string): Media[] {
+  async search(provider: MediaProviderType, term: string): Promise<Media[]> {
     const providerStrategy: MediaProviderStrategy | null =
       this.mediaProviderStrategyFactory.createProvider(provider);
 
@@ -29,6 +29,6 @@ export default class SearchMediaUseCase {
       throw new AttributeLengthUseCaseError('term', this.appConfig.minSearchTerm);
     }
 
-    return providerStrategy!.search(term);
+    return await providerStrategy!.search(term);
   }
 }

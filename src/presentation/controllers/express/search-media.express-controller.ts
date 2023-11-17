@@ -3,12 +3,12 @@ import SearchMediaUseCase from '@application/usecases/search-media-usecase';
 import { ExpressControllerTemplate } from '@presentation/templates/express-controller.template';
 import Media from '@domain/media';
 
-export class SearchMediaExpressController extends ExpressControllerTemplate<Media[]> {
+export class SearchMediaExpressController extends ExpressControllerTemplate<Promise<Media[]>> {
   constructor(private readonly searchMediaUseCase: SearchMediaUseCase) {
     super();
   }
 
-  executeUseCase(request: express.Request): Media[] {
+  async executeUseCase(request: express.Request): Promise<Media[]> {
     const provider = request.params['provider'] as string;
     const term = request.query.term as string;
 

@@ -23,7 +23,7 @@ $ script/bash     # access bash into container
 
 ## Architecture
 
-#### Flow
+#### Application Flow
 ```mermaid
 flowchart TD
     USER[User]
@@ -44,20 +44,20 @@ flowchart TD
     YT_PROVIDER -->|"[REST] term + api-key"| YT_API
     SF_PROVIDER -->|"[REST] term + api-key"| SF_API
 ```
-#### Paths
 
-```
-src/core
-src/infrastructure
-src/presentation
-```
+#### Application Layers (Path Organization)
+
+- **core:** Domains and business logics decoupled from tools/frameworks.
+- **infrastructure:** Infrastructure setup such as data providers, external connections and overall configuration.
+- **presentation:** Entrypoint with routing, controllers and REST API framework.
+
 
 ## Technical Details
 
 - Languages and runtimes: `JavaScript - TypeScript - Node.JS`;
 - Backend Framework: `ExpressJS`;
 - Architecture: `Backend Application - Clean Architecture - REST API`;
-- Methodologies, principles and practices: `Test-Driven Development (TDD) - Clean Code - SOLID - YAGNI - KISS`.
+- Methodologies, principles and practices: `Design Patterns - Test-Driven Development (TDD) - Clean Code - SOLID - YAGNI - KISS`.
 
 ## Stay in touch
 

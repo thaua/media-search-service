@@ -2,6 +2,7 @@ import express from 'express';
 import { HttpResponseError } from '@presentation/response/http-response-error';
 import { ExpressControllerTemplate } from '@presentation/templates/express-controller.template';
 import { UseCaseError } from '../../core/exceptions/use-case.error';
+import { InfrastructureError } from '@infrastructure/exceptions/infrastructure.error';
 
 class MockExpressController extends ExpressControllerTemplate<any> {
   executeUseCase(): any {
@@ -10,6 +11,7 @@ class MockExpressController extends ExpressControllerTemplate<any> {
 }
 
 class MockedUseCaseError extends UseCaseError {}
+class MockedInfrastructureError extends InfrastructureError {}
 
 describe('ExpressControllerTemplate', () => {
   let mockExpressController: MockExpressController;
@@ -44,6 +46,24 @@ describe('ExpressControllerTemplate', () => {
 
     expect(mockResponse.status).toHaveBeenCalledWith(400);
     expect(mockResponse.json).toHaveBeenCalledWith(new HttpResponseError(useCaseError));
+  });
+
+  it('should handle InfrastructureError and return a 502 response', async () => {
+    const mockedErrorDetails = new Error('test');
+    const mockedErrorMessage = 'Error message';
+    const infrastructureError = new MockedInfrastructureError(
+      mockedErrorMessage,
+      mockedErrorDetails,
+    );
+
+    jest.spyOn(mockExpressController, 'executeUseCase').mockImplementation(() => {
+      throw infrastructureError;
+    });
+
+    await mockExpressController.handle(mockRequest, mockResponse);
+
+    expect(mockResponse.status).toHaveBeenCalledWith(502);
+    expect(mockResponse.json).toHaveBeenCalledWith(new HttpResponseError(infrastructureError));
   });
 
   it('should handle other exceptions and return a 500 response', async () => {

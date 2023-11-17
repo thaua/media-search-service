@@ -3,6 +3,7 @@ import { Config } from '@infrastructure/data/interfaces/config.interface';
 import Media from '@domain/media';
 import { YoutubeResponse } from '@infrastructure/providers/interfaces/youtube-response.interface';
 import { YoutubeProviderError } from '@infrastructure/providers/exceptions/youtube-provider.error';
+import { YoutubeResponseError } from '@infrastructure/providers/interfaces/youtube-response-error.interface';
 
 describe('YoutubeMediaSearchProvider', () => {
   let provider: YoutubeMediaSearchProvider;
@@ -68,17 +69,43 @@ describe('YoutubeMediaSearchProvider', () => {
   });
 
   describe('with error response', () => {
-    let mockedError: Error;
+    describe('on correct response', () => {
+      let mockedError: Error;
 
-    beforeEach(() => {
-      mockedError = new Error('error');
-      (global.fetch as jest.Mocked<any>).mockRejectedValue(mockedError);
+      beforeEach(() => {
+        mockedError = new Error('error');
+        (global.fetch as jest.Mocked<any>).mockRejectedValue(mockedError);
+      });
+
+      it('should throw YoutubeProviderError', async () => {
+        return expect(async () => {
+          await provider.search(mockedTerm);
+        }).rejects.toThrowError(new YoutubeProviderError(mockedError));
+      });
     });
 
-    it('should throw YoutubeProviderError', async () => {
-      return expect(async () => {
-        await provider.search(mockedTerm);
-      }).rejects.toThrowError(new YoutubeProviderError(mockedError));
+    describe('on exception', () => {
+      let mockedErrorResponse: any;
+
+      beforeEach(() => {
+        mockedErrorResponse = {
+          code: 400,
+          message: 'test',
+          details: 'details',
+        };
+
+        (global.fetch as jest.Mocked<any>).mockResolvedValue({
+          json: jest.fn().mockResolvedValue({
+            error: mockedErrorResponse,
+          } as YoutubeResponseError),
+        });
+      });
+
+      it('should throw YoutubeProviderError', async () => {
+        return expect(async () => {
+          await provider.search(mockedTerm);
+        }).rejects.toThrowError(new YoutubeProviderError(mockedErrorResponse));
+      });
     });
   });
 

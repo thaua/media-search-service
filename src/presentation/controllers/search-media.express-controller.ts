@@ -14,6 +14,7 @@ export class SearchMediaExpressController extends ExpressControllerTemplate<
   executeUseCase(request: express.Request): Media[] {
     const term = request.query?.term;
 
+    // TODO: Move this validation to use case
     if (!term) {
       throw new RequiredFieldError('term');
     }

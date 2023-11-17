@@ -8,6 +8,7 @@ export abstract class ExpressControllerTemplate<T> implements Controller {
     try {
       response.json(this.executeUseCase(request));
     } catch (e) {
+      // TODO: Check if it is use case or infrastructure error and return correct status code and message.
       if (e instanceof RequiredFieldError) {
         response
           .status(400)

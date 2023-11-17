@@ -1,4 +1,4 @@
-import { SearchMediaExpressController } from '@presentation/controllers/express/search-media.express-controller';
+import { SearchMediaExpressController } from '@presentation/controllers/search-media.express-controller';
 import SearchMediaUseCase from '@application/usecases/search-media-usecase';
 import express from 'express';
 import { MediaProviderType } from '@domain/media-provider.type';

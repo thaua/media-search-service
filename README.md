@@ -21,6 +21,37 @@ $ script/lint     # runs lint tool on application
 $ script/bash     # access bash into container
 ```
 
+## Architecture
+
+#### Flow
+```mermaid
+flowchart TD
+    USER[User]
+    ENDPOINT["Search Endpoint"]
+    FACTORY{Media Provider Factory}
+    YT_PROVIDER[Youtube Provider]
+    SF_PROVIDER[Spotify Provider]
+
+    subgraph External
+        YT_API(Youtube Data API)
+        SF_API(Youtube Web API)
+    end
+
+    USER -->|"[REST] provider + term"| ENDPOINT
+    ENDPOINT --> FACTORY
+    FACTORY -->|When provider is YouTube| YT_PROVIDER
+    FACTORY -->|When provider is Spotify| SF_PROVIDER
+    YT_PROVIDER -->|"[REST] term + api-key"| YT_API
+    SF_PROVIDER -->|"[REST] term + api-key"| SF_API
+```
+#### Paths
+
+```
+src/core
+src/infrastructure
+src/presentation
+```
+
 ## Technical Details
 
 - Languages and runtimes: `JavaScript - TypeScript - Node.JS`;

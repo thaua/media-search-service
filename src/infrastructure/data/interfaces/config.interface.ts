@@ -3,6 +3,7 @@ export interface Config {
   maxResults: number;
   minSearchTerm: number;
   youtube: {
+    url: string;
     token: string;
   };
   spotify: {

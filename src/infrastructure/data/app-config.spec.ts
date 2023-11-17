@@ -9,6 +9,7 @@ describe('AppConfig', () => {
     const mockedServerPort: string | undefined = '1000';
     const mockedMinSearchTerm: number | undefined = 5;
     const mockedMaxResults: number | undefined = 20;
+    const mockedYoutubeUrl: string | undefined = 'youtubeUrlTest';
     const mockedYoutubeToken: string | undefined = 'youtubeTokenTest';
     const mockedSpotifyToken: string | undefined = 'spotifyTokenTest';
 
@@ -18,6 +19,7 @@ describe('AppConfig', () => {
       process.env.PORT = mockedServerPort;
       process.env.MIN_SEARCH_TERM = String(mockedMinSearchTerm);
       process.env.MAX_RESULTS = String(mockedMaxResults);
+      process.env.YOUTUBE_URL = mockedYoutubeUrl;
       process.env.YOUTUBE_TOKEN = mockedYoutubeToken;
       process.env.SPOTIFY_TOKEN = mockedSpotifyToken;
 
@@ -42,6 +44,10 @@ describe('AppConfig', () => {
         expect(AppConfig.maxResults).toEqual(mockedMaxResults);
       });
 
+      it('defines youtube url', async () => {
+        expect(AppConfig.youtube.url).toEqual(mockedYoutubeUrl);
+      });
+
       it('defines youtube token', async () => {
         expect(AppConfig.youtube.token).toEqual(mockedYoutubeToken);
       });
@@ -59,6 +65,7 @@ describe('AppConfig', () => {
       delete process.env.PORT;
       delete process.env.MIN_SEARCH_TERM;
       delete process.env.MAX_RESULTS;
+      delete process.env.YOUTUBE_URL;
       delete process.env.YOUTUBE_TOKEN;
       delete process.env.SPOTIFY_TOKEN;
 
@@ -80,6 +87,10 @@ describe('AppConfig', () => {
 
     it('defines maxResults with default value', async () => {
       expect(AppConfig.maxResults).toEqual(10);
+    });
+
+    it('defines youtube url with default value', async () => {
+      expect(AppConfig.youtube.url).toBe('');
     });
 
     it('defines youtube token with default value', async () => {

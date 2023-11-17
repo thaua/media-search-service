@@ -1,23 +1,13 @@
 import MediaProviderStrategyFactory from '@application/factories/media-provider-strategy-factory';
-import MediaProviderStrategy from '@application/strategies/media-provider-strategy.interface';
-import Media from '@domain/media';
+import { Config } from '@infrastructure/data/interfaces/config.interface';
 
-class MockedMediaProviderStrategy1 implements MediaProviderStrategy {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  search(term: string): Media[] {
-    return [];
-  }
-}
+const MockedMediaProviderStrategy1 = jest.fn();
+const MockedMediaProviderStrategy2 = jest.fn();
 
-class MockedMediaProviderStrategy2 implements MediaProviderStrategy {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  search(term: string): Media[] {
-    return [];
-  }
-}
+const MockedConfig: Config = {} as Config;
 
 describe('MediaProviderStrategyFactory', () => {
-  const mediaSearchProviderFactory = new MediaProviderStrategyFactory({
+  const mediaSearchProviderFactory = new MediaProviderStrategyFactory(MockedConfig, {
     provider1: MockedMediaProviderStrategy1,
     provider2: MockedMediaProviderStrategy2,
   });
@@ -35,12 +25,14 @@ describe('MediaProviderStrategyFactory', () => {
       const result = mediaSearchProviderFactory.createProvider('provider1');
 
       expect(result).toBeInstanceOf(MockedMediaProviderStrategy1);
+      expect(MockedMediaProviderStrategy1).toHaveBeenCalledWith(MockedConfig);
     });
 
     it('creates a Provider2 class', () => {
       const result = mediaSearchProviderFactory.createProvider('provider2');
 
       expect(result).toBeInstanceOf(MockedMediaProviderStrategy2);
+      expect(MockedMediaProviderStrategy2).toHaveBeenCalledWith(MockedConfig);
     });
   });
 });

@@ -10,16 +10,13 @@ const mockedMediaProviderStrategyFactory: any = {
 };
 
 describe('SearchMediaUseCase', () => {
-  const searchMediaUseCase = new SearchMediaUseCase(
-    AppConfig,
-    mockedMediaProviderStrategyFactory,
-  );
+  const searchMediaUseCase = new SearchMediaUseCase(AppConfig, mockedMediaProviderStrategyFactory);
 
   describe('creating', () => {
     it('sets factory correctly', () => {
-      expect(
-        (searchMediaUseCase as any)['mediaProviderStrategyFactory'],
-      ).toEqual(mockedMediaProviderStrategyFactory);
+      expect((searchMediaUseCase as any)['mediaProviderStrategyFactory']).toEqual(
+        mockedMediaProviderStrategyFactory,
+      );
     });
   });
 
@@ -32,17 +29,13 @@ describe('SearchMediaUseCase', () => {
         search: jest.fn(),
       };
 
-      mockedMediaProviderStrategyFactory.createProvider.mockReturnValue(
-        mockedMediaSearchProvider,
-      );
+      mockedMediaProviderStrategyFactory.createProvider.mockReturnValue(mockedMediaSearchProvider);
     });
 
     describe('with invalid params', () => {
       describe('with invalid provider', () => {
         beforeEach(() => {
-          mockedMediaProviderStrategyFactory.createProvider.mockReturnValue(
-            null,
-          );
+          mockedMediaProviderStrategyFactory.createProvider.mockReturnValue(null);
         });
 
         it('should throw InvalidProviderUseCaseError', () => {
@@ -50,9 +43,7 @@ describe('SearchMediaUseCase', () => {
 
           expect(() => {
             searchMediaUseCase.search(mockedInvalidProvider, '123');
-          }).toThrowError(
-            new InvalidProviderUseCaseError(mockedInvalidProvider),
-          );
+          }).toThrowError(new InvalidProviderUseCaseError(mockedInvalidProvider));
         });
       });
 
@@ -63,8 +54,7 @@ describe('SearchMediaUseCase', () => {
 
         it('should throw RequiredAttributeUseCaseError', () => {
           expect(() => {
-            // @ts-ignore
-            searchMediaUseCase.search(provider, null);
+            searchMediaUseCase.search(provider, null as unknown as string);
           }).toThrowError(new RequiredAttributeUseCaseError('term'));
         });
       });
@@ -77,18 +67,13 @@ describe('SearchMediaUseCase', () => {
         it('should throw AttributeLengthUseCaseError', () => {
           expect(() => {
             searchMediaUseCase.search(provider, '12');
-          }).toThrowError(
-            new AttributeLengthUseCaseError('term', AppConfig.minSearchTerm),
-          );
+          }).toThrowError(new AttributeLengthUseCaseError('term', AppConfig.minSearchTerm));
         });
       });
     });
 
     describe('with valid params', () => {
-      const mockedMedia: Media[] = [
-        { code: '1' } as Media,
-        { code: '2' } as Media,
-      ];
+      const mockedMedia: Media[] = [{ code: '1' } as Media, { code: '2' } as Media];
       const term = 'exampleTerm';
 
       let result: Media[];
@@ -99,9 +84,7 @@ describe('SearchMediaUseCase', () => {
       });
 
       it('calls the createProvider method with the correct arguments', () => {
-        expect(
-          mockedMediaProviderStrategyFactory.createProvider,
-        ).toHaveBeenCalledWith(provider);
+        expect(mockedMediaProviderStrategyFactory.createProvider).toHaveBeenCalledWith(provider);
       });
 
       it('calls the SearchProvider search method with the correct arguments', () => {

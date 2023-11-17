@@ -12,9 +12,7 @@ describe('ListProviderExpressController', () => {
       mockedListProviderUseCase as unknown as ListProviderUseCase,
     );
 
-    jest
-      .spyOn(listProviderExpressController, 'handle')
-      .mockImplementation(() => {});
+    jest.spyOn(listProviderExpressController, 'handle').mockImplementation(() => {});
   });
 
   it('should execute use case', () => {

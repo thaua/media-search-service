@@ -26,10 +26,7 @@ export default class SearchMediaUseCase {
     }
 
     if (term.length < this.appConfig.minSearchTerm) {
-      throw new AttributeLengthUseCaseError(
-        'term',
-        this.appConfig.minSearchTerm,
-      );
+      throw new AttributeLengthUseCaseError('term', this.appConfig.minSearchTerm);
     }
 
     return providerStrategy!.search(term);

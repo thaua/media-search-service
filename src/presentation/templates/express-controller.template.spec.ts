@@ -36,27 +36,21 @@ describe('ExpressControllerTemplate', () => {
   it('should handle UseCaseError and return a 400 response', () => {
     const useCaseError = new MockedUseCaseError('Error message');
 
-    jest
-      .spyOn(mockExpressController, 'executeUseCase')
-      .mockImplementation(() => {
-        throw useCaseError;
-      });
+    jest.spyOn(mockExpressController, 'executeUseCase').mockImplementation(() => {
+      throw useCaseError;
+    });
 
     mockExpressController.handle(mockRequest, mockResponse);
 
     expect(mockResponse.status).toHaveBeenCalledWith(400);
-    expect(mockResponse.json).toHaveBeenCalledWith(
-      new HttpResponseError(useCaseError),
-    );
+    expect(mockResponse.json).toHaveBeenCalledWith(new HttpResponseError(useCaseError));
   });
 
   it('should handle other exceptions and return a 500 response', () => {
     const otherError = new Error('Some unexpected error');
-    jest
-      .spyOn(mockExpressController, 'executeUseCase')
-      .mockImplementation(() => {
-        throw otherError;
-      });
+    jest.spyOn(mockExpressController, 'executeUseCase').mockImplementation(() => {
+      throw otherError;
+    });
 
     mockExpressController.handle(mockRequest, mockResponse);
 

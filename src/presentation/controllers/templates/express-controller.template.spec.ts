@@ -47,7 +47,7 @@ describe('ExpressControllerTemplate', () => {
     );
   });
 
-  it('should handle other errors and return a 500 response', () => {
+  it('should handle other exceptions and return a 500 response', () => {
     const otherError = new Error('Some unexpected error');
     jest
       .spyOn(mockExpressController, 'executeUseCase')

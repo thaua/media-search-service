@@ -2,4 +2,4 @@
 
 script/update
 
-docker run -t --rm -v "$(pwd):/app" --name search-service-test search-service npm run test
+docker run -it --rm -v "$(pwd):/app" --name search-service-test search-service npm run test

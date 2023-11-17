@@ -64,8 +64,6 @@ describe('AppConfig', () => {
 
       // eslint-disable-next-line @typescript-eslint/no-var-requires
       AppConfig = require('@infrastructure/data/app-config').AppConfig;
-
-      console.log(AppConfig);
     });
 
     it('defines object', async () => {

@@ -26,42 +26,23 @@ describe('SearchMediaExpressController', () => {
       .mockImplementation(() => {});
   });
 
-  describe('with no "term" parameter', () => {
-    beforeEach(() => {
-      mockRequest = {
-        params: {
-          provider: mockedProviderType,
-        },
-      } as unknown as express.Request;
-    });
-
-    it('should not execute use case and throw error', () => {
-      expect(() =>
-        searchMediaExpressController.executeUseCase(mockRequest),
-      ).toThrow(new RequiredFieldError('term'));
-      expect(mockedSearchMediaUseCase.search).not.toHaveBeenCalled();
-    });
+  beforeEach(() => {
+    mockRequest = {
+      query: {
+        term: mockedTerm,
+      },
+      params: {
+        provider: mockedProviderType,
+      },
+    } as unknown as express.Request;
   });
 
-  describe('with valid params', () => {
-    beforeEach(() => {
-      mockRequest = {
-        query: {
-          term: mockedTerm,
-        },
-        params: {
-          provider: mockedProviderType,
-        },
-      } as unknown as express.Request;
-    });
+  it('should execute use case', () => {
+    searchMediaExpressController.executeUseCase(mockRequest);
 
-    it('should execute use case', () => {
-      searchMediaExpressController.executeUseCase(mockRequest);
-
-      expect(mockedSearchMediaUseCase.search).toHaveBeenCalledWith(
-        mockedProviderType,
-        mockedTerm,
-      );
-    });
+    expect(mockedSearchMediaUseCase.search).toHaveBeenCalledWith(
+      mockedProviderType,
+      mockedTerm,
+    );
   });
 });

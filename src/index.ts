@@ -14,6 +14,7 @@ export const searchMediaExpressController = new SearchMediaExpressController(
   searchMediaUseCase,
 );
 
+// TODO: Add config class to infrastructure
 const PORT = process.env.PORT || '3000';
 
 const app: core.Express = express();

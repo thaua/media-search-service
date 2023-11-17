@@ -4,6 +4,8 @@ import MediaProviderStrategyFactory from '@application/factories/media-provider-
 import { Config } from '@infrastructure/data/interfaces/config.interface';
 import { RequiredAttributeUseCaseError } from '@application/usecases/exceptions/required-attribute.use-case-error';
 import { AttributeLengthUseCaseError } from '@application/usecases/exceptions/attribute-length.use-case-error';
+import MediaProviderStrategy from '@application/strategies/media-provider-strategy.interface';
+import { InvalidProviderUseCaseError } from '@application/usecases/exceptions/invalid-provider.use-case-error';
 
 export default class SearchMediaUseCase {
   constructor(
@@ -12,17 +14,24 @@ export default class SearchMediaUseCase {
   ) {}
 
   search(provider: MediaProviderType, term: string): Media[] {
+    const providerStrategy: MediaProviderStrategy | null =
+      this.mediaProviderStrategyFactory.createProvider(provider);
+
+    if (!providerStrategy) {
+      throw new InvalidProviderUseCaseError(provider);
+    }
+
     if (!term) {
       throw new RequiredAttributeUseCaseError('term');
-    } else if (term.length < this.appConfig.minSearchTerm) {
+    }
+
+    if (term.length < this.appConfig.minSearchTerm) {
       throw new AttributeLengthUseCaseError(
         'term',
         this.appConfig.minSearchTerm,
       );
     }
 
-    return this.mediaProviderStrategyFactory
-      .createProvider(provider)
-      .search(term);
+    return providerStrategy!.search(term);
   }
 }

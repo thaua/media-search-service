@@ -7,5 +7,6 @@ describe('RequiredAttributeUseCaseError', () => {
 
     expect(error.message).toBe(`Missing '${field}' attribute.`);
     expect(error.field).toBe(field);
+    expect(error.name).toBe('RequiredAttributeUseCaseError');
   });
 });

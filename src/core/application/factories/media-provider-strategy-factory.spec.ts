@@ -23,24 +23,22 @@ describe('MediaProviderStrategyFactory', () => {
   });
 
   describe('with invalid provider', () => {
-    it('throws an error', () => {
-      expect(() =>
-        mediaSearchProviderFactory.createProvider('provider3'),
-      ).toThrowError('Invalid media search strategy.');
+    it('returns null', () => {
+      const result = mediaSearchProviderFactory.createProvider('provider3');
+
+      expect(result).toBeNull();
     });
   });
 
   describe('with valid provider', () => {
     it('creates a Provider1 class', () => {
-      const result: MediaProviderStrategy =
-        mediaSearchProviderFactory.createProvider('provider1');
+      const result = mediaSearchProviderFactory.createProvider('provider1');
 
       expect(result).toBeInstanceOf(MockedMediaProviderStrategy1);
     });
 
     it('creates a Provider2 class', () => {
-      const result: MediaProviderStrategy =
-        mediaSearchProviderFactory.createProvider('provider2');
+      const result = mediaSearchProviderFactory.createProvider('provider2');
 
       expect(result).toBeInstanceOf(MockedMediaProviderStrategy2);
     });

@@ -3,6 +3,7 @@ import SearchMediaUseCase from './search-media-usecase';
 import { AppConfig } from '@infrastructure/data/app-config';
 import { RequiredAttributeUseCaseError } from '@application/usecases/exceptions/required-attribute.use-case-error';
 import { AttributeLengthUseCaseError } from '@application/usecases/exceptions/attribute-length.use-case-error';
+import { InvalidProviderUseCaseError } from '@application/usecases/exceptions/invalid-provider.use-case-error';
 
 const mockedMediaProviderStrategyFactory: any = {
   createProvider: jest.fn(),
@@ -37,6 +38,24 @@ describe('SearchMediaUseCase', () => {
     });
 
     describe('with invalid params', () => {
+      describe('with invalid provider', () => {
+        beforeEach(() => {
+          mockedMediaProviderStrategyFactory.createProvider.mockReturnValue(
+            null,
+          );
+        });
+
+        it('should throw InvalidProviderUseCaseError', () => {
+          const mockedInvalidProvider = 'invalidProvider';
+
+          expect(() => {
+            searchMediaUseCase.search(mockedInvalidProvider, '123');
+          }).toThrowError(
+            new InvalidProviderUseCaseError(mockedInvalidProvider),
+          );
+        });
+      });
+
       describe('with no term param', () => {
         beforeEach(() => {
           mockedMediaSearchProvider.search.mockReturnValue(null);

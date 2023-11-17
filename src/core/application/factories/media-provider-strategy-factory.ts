@@ -5,12 +5,12 @@ import { ProviderListType } from '@domain/provider-list.type';
 export default class MediaProviderStrategyFactory {
   constructor(private readonly providerList: ProviderListType) {}
 
-  createProvider(provider: MediaProviderType): MediaProviderStrategy {
+  createProvider(provider: MediaProviderType): MediaProviderStrategy | null {
     const providerClass: new () => MediaProviderStrategy =
       this.providerList[provider];
 
     if (!providerClass) {
-      throw new Error('Invalid media search strategy.');
+      return null;
     }
 
     return new providerClass();

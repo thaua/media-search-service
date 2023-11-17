@@ -1,32 +1,52 @@
 import { AttributeLengthUseCaseError } from '@application/usecases/exceptions/attribute-length.use-case-error';
 
 describe('AttributeLengthUseCaseError', () => {
-  it('should create an error message for minimum length', () => {
-    const field = 'exampleField';
-    const minLength = 5;
+  let error: AttributeLengthUseCaseError;
+  const field = 'exampleField';
+  let minLength: number;
+  let maxLength: number | undefined;
 
-    const error = new AttributeLengthUseCaseError(field, minLength);
-
-    expect(error.message).toBe(
-      `The '${field}' attribute must have at least ${minLength} characters.`,
-    );
-    expect(error.field).toBe(field);
-    expect(error.minLength).toBe(minLength);
-    expect(error.maxLength).toBeUndefined();
+  beforeEach(() => {
+    error = new AttributeLengthUseCaseError(field, minLength, maxLength);
   });
 
-  it('should create an error message for a range of length', () => {
-    const field = 'exampleField';
-    const minLength = 5;
-    const maxLength = 10;
+  describe('with maxLength parameter', () => {
+    beforeAll(() => {
+      minLength = 5;
+      maxLength = 10;
+    });
 
-    const error = new AttributeLengthUseCaseError(field, minLength, maxLength);
+    it('should create an error message for a range of length', () => {
+      const error = new AttributeLengthUseCaseError(
+        field,
+        minLength,
+        maxLength,
+      );
 
-    expect(error.message).toBe(
-      `The '${field}' attribute's length must be between ${minLength} and ${maxLength} characters.`,
-    );
-    expect(error.field).toBe(field);
-    expect(error.minLength).toBe(minLength);
-    expect(error.maxLength).toBe(maxLength);
+      expect(error.message).toBe(
+        `The '${field}' attribute's length must be between 5 and 10 characters.`,
+      );
+      expect(error.field).toBe(field);
+      expect(error.minLength).toBe(minLength);
+      expect(error.maxLength).toBe(maxLength);
+      expect(error.name).toBe('AttributeLengthUseCaseError');
+    });
+  });
+
+  describe('with no maxLength parameter', () => {
+    beforeAll(() => {
+      minLength = 1;
+      maxLength = undefined;
+    });
+
+    it('should create an error message for minimum length only', () => {
+      expect(error.message).toBe(
+        `The '${field}' attribute must have at least 1 characters.`,
+      );
+      expect(error.field).toBe(field);
+      expect(error.minLength).toBe(minLength);
+      expect(error.maxLength).toBeUndefined();
+      expect(error.name).toBe('AttributeLengthUseCaseError');
+    });
   });
 });

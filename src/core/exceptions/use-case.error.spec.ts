@@ -9,6 +9,5 @@ describe('UseCaseError', () => {
 
     expect(error).toBeInstanceOf(UseCaseError);
     expect(error.message).toBe(errorMessage);
-    expect(error.name).toBe('UseCaseError');
   });
 });

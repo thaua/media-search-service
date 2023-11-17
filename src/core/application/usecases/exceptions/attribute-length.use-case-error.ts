@@ -15,5 +15,6 @@ export class AttributeLengthUseCaseError extends UseCaseError {
     }
 
     super(errorMessage);
+    this.name = 'AttributeLengthUseCaseError';
   }
 }

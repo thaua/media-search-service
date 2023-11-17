@@ -20,7 +20,7 @@ describe('SearchMediaExpressController', () => {
       mockedSearchMediaUseCase as unknown as SearchMediaUseCase,
     );
 
-    jest.spyOn(searchMediaExpressController, 'handle').mockImplementation(() => {});
+    jest.spyOn(searchMediaExpressController, 'handle').mockResolvedValue();
   });
 
   beforeEach(() => {
@@ -34,8 +34,8 @@ describe('SearchMediaExpressController', () => {
     } as unknown as express.Request;
   });
 
-  it('should execute use case', () => {
-    searchMediaExpressController.executeUseCase(mockRequest);
+  it('should execute use case', async () => {
+    await searchMediaExpressController.executeUseCase(mockRequest);
 
     expect(mockedSearchMediaUseCase.search).toHaveBeenCalledWith(mockedProviderType, mockedTerm);
   });

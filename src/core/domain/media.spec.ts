@@ -1,4 +1,4 @@
-import Media from '@domain/media';
+import Media from './media';
 
 describe('Media', () => {
   const testCode = 'code';

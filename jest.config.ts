@@ -11,6 +11,7 @@ const config: Config = {
   collectCoverageFrom: [
     'src/**/*.{js,jsx,ts,tsx}',
     '!**/*.interface.ts',
+    '!**/*.type.ts',
     '!src/index.ts',
     '!src/infrastructure/web/**/*.ts',
   ],
@@ -26,9 +27,10 @@ const config: Config = {
     },
   },
   moduleNameMapper: {
-    '@domain/(.*)': ['<rootDir>/src/domain/$1'],
-    '@application/(.*)': ['<rootDir>/src/application/$1'],
+    '@application/(.*)': ['<rootDir>/src/core/application/$1'],
+    '@domain/(.*)': ['<rootDir>/src/core/domain/$1'],
     '@infrastructure/(.*)': ['<rootDir>/src/infrastructure/$1'],
+    '@presentation/(.*)': ['<rootDir>/src/presentation/$1'],
   },
   preset: 'ts-jest',
   rootDir: '.',

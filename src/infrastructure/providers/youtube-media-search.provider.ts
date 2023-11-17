@@ -1,7 +1,9 @@
-import MediaSearchProvider from '@application/providers/media-search-provider.interface';
+import MediaProviderStrategy from '@application/strategies/media-provider-strategy.interface';
 import Media from '@domain/media';
 
-export default class YoutubeMediaSearchProvider implements MediaSearchProvider {
+export default class YoutubeMediaSearchProvider
+  implements MediaProviderStrategy
+{
   search(term: string): Media[] {
     console.info(`[YouTube] Searching for ${term}.`);
     return [];

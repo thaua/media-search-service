@@ -1,49 +1,52 @@
-import { Provider } from '@domain/provider';
+import { MediaProviderType } from '@domain/media-provider.type';
 import Media from '@domain/media';
-import SearchMediaUseCase from '@application/usecases/search-media-usecase';
+import SearchMediaUseCase from './search-media-usecase';
 
-const mockMediaSearchProviderFactory: any = {
+const mockedMediaProviderStrategyFactory: any = {
   createProvider: jest.fn(),
 };
 
 describe('SearchMediaUseCase', () => {
   const searchMediaUseCase = new SearchMediaUseCase(
-    mockMediaSearchProviderFactory,
+    mockedMediaProviderStrategyFactory,
   );
 
   describe('creating', () => {
     it('sets factory correctly', () => {
-      expect((searchMediaUseCase as any)['mediaSearchProviderFactory']).toEqual(
-        mockMediaSearchProviderFactory,
-      );
+      expect(
+        (searchMediaUseCase as any)['mediaProviderStrategyFactory'],
+      ).toEqual(mockedMediaProviderStrategyFactory);
     });
   });
 
   describe('search', () => {
-    const provider = Provider.YOUTUBE;
-    const term = 'exampleTerm';
+    let mockedMediaSearchProvider: any;
     const mockedMedia: Media[] = [
       { code: '1' } as Media,
-      { code: '' } as Media,
+      { code: '2' } as Media,
     ];
-    let mockedMediaSearchProvider: any;
+
+    const provider = 'exampleProvider';
+    const term = 'exampleTerm';
+
     let result: Media[];
 
     beforeEach(() => {
       mockedMediaSearchProvider = {
         search: jest.fn(),
       };
-      mockedMediaSearchProvider.search.mockReturnValue(mockedMedia);
-      mockMediaSearchProviderFactory.createProvider.mockReturnValue(
+
+      mockedMediaProviderStrategyFactory.createProvider.mockReturnValue(
         mockedMediaSearchProvider,
       );
+      mockedMediaSearchProvider.search.mockReturnValue(mockedMedia);
 
       result = searchMediaUseCase.search(provider, term);
     });
 
     it('calls the createProvider method with the correct arguments', () => {
       expect(
-        mockMediaSearchProviderFactory.createProvider,
+        mockedMediaProviderStrategyFactory.createProvider,
       ).toHaveBeenCalledWith(provider);
     });
 

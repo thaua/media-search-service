@@ -40,7 +40,7 @@ export default class SpotifyMediaSearchProvider implements MediaProviderStrategy
 
   private async getAuthenticationToken(): Promise<string> {
     if (this.needsAuthentication()) {
-      this.updateToken();
+      await this.updateToken();
     }
 
     return SpotifyMediaSearchProvider.currentAuthenticationToken!;

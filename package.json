@@ -1,7 +1,7 @@
 {
   "name": "media-search-service",
   "version": "1.0.0",
-  "description": "<p align=\"center\">   <a href=\"http://nestjs.com/\" target=\"blank\"><img src=\"https://nestjs.com/img/logo-small.svg\" width=\"200\" alt=\"Nest Logo\" /></a> </p>",
+  "description": "A generic media search service for general implemented media providers",
   "main": "index.js",
   "directories": {
     "test": "spec"

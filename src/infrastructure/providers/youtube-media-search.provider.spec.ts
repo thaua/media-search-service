@@ -23,7 +23,6 @@ describe('YoutubeMediaSearchProvider', () => {
 
     provider = new YoutubeMediaSearchProvider(mockedConfig);
 
-    console.info = jest.fn();
     global.fetch = jest.fn().mockResolvedValue({
       json: jest.fn().mockResolvedValue({
         items: [

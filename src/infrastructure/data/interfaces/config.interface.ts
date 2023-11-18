@@ -7,6 +7,9 @@ export interface Config {
     token: string;
   };
   spotify: {
-    token: string;
+    url: string;
+    tokenUrl: string;
+    clientId: string;
+    clientSecret: string;
   };
 }

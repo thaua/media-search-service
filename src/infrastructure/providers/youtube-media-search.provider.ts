@@ -10,8 +10,6 @@ export default class YoutubeMediaSearchProvider implements MediaProviderStrategy
   constructor(private readonly appConfig: Config) {}
 
   async search(term: string): Promise<Media[]> {
-    console.info(`[YouTube] Searching for ${term}.`);
-
     const url = `${this.appConfig.youtube.url}?q=${term}&part=snippet&key=${this.appConfig.youtube.token}&type=video&maxResults=${this.appConfig.maxResults}`;
 
     return await fetch(url)
@@ -20,8 +18,8 @@ export default class YoutubeMediaSearchProvider implements MediaProviderStrategy
           if ((youtubeResponse as YoutubeResponseError).error) {
             throw new YoutubeProviderError((youtubeResponse as YoutubeResponseError).error);
           } else {
-            return (youtubeResponse as YoutubeResponse).items.map(
-              this.mapYoutubeResponseToApplicationFormat,
+            return (youtubeResponse as YoutubeResponse).items.map((i) =>
+              this.mapYoutubeResponseToApplicationFormat(i),
             );
           }
         }),

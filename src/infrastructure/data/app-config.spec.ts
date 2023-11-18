@@ -11,7 +11,10 @@ describe('AppConfig', () => {
     const mockedMaxResults: number | undefined = 20;
     const mockedYoutubeUrl: string | undefined = 'youtubeUrlTest';
     const mockedYoutubeToken: string | undefined = 'youtubeTokenTest';
-    const mockedSpotifyToken: string | undefined = 'spotifyTokenTest';
+    const mockedSpotifyUrl: string | undefined = 'spotifyUrl';
+    const mockedSpotifyTokenUrl: string | undefined = 'spotifyTokenUrl';
+    const mockedSpotifyClientId: string | undefined = 'spotifyClientId';
+    const mockedSpotifyClientSecret: string | undefined = 'spotifyClientSecret';
 
     let AppConfig: Config;
 
@@ -21,7 +24,10 @@ describe('AppConfig', () => {
       process.env.MAX_RESULTS = String(mockedMaxResults);
       process.env.YOUTUBE_URL = mockedYoutubeUrl;
       process.env.YOUTUBE_TOKEN = mockedYoutubeToken;
-      process.env.SPOTIFY_TOKEN = mockedSpotifyToken;
+      process.env.SPOTIFY_URL = mockedSpotifyUrl;
+      process.env.SPOTIFY_TOKEN_URL = mockedSpotifyTokenUrl;
+      process.env.SPOTIFY_CLIENT_ID = mockedSpotifyClientId;
+      process.env.SPOTIFY_CLIENT_SECRET = mockedSpotifyClientSecret;
 
       // eslint-disable-next-line @typescript-eslint/no-var-requires
       AppConfig = require('@infrastructure/data/app-config').AppConfig;
@@ -52,8 +58,20 @@ describe('AppConfig', () => {
         expect(AppConfig.youtube.token).toEqual(mockedYoutubeToken);
       });
 
-      it('defines spotify token', async () => {
-        expect(AppConfig.spotify.token).toEqual(mockedSpotifyToken);
+      it('defines spotify url', async () => {
+        expect(AppConfig.spotify.url).toEqual(mockedSpotifyUrl);
+      });
+
+      it('defines spotify token url', async () => {
+        expect(AppConfig.spotify.tokenUrl).toEqual(mockedSpotifyTokenUrl);
+      });
+
+      it('defines spotify client id', async () => {
+        expect(AppConfig.spotify.clientId).toEqual(mockedSpotifyClientId);
+      });
+
+      it('defines spotify client secret', async () => {
+        expect(AppConfig.spotify.clientSecret).toEqual(mockedSpotifyClientSecret);
       });
     });
   });
@@ -67,7 +85,10 @@ describe('AppConfig', () => {
       delete process.env.MAX_RESULTS;
       delete process.env.YOUTUBE_URL;
       delete process.env.YOUTUBE_TOKEN;
-      delete process.env.SPOTIFY_TOKEN;
+      delete process.env.SPOTIFY_URL;
+      delete process.env.SPOTIFY_TOKEN_URL;
+      delete process.env.SPOTIFY_CLIENT_ID;
+      delete process.env.SPOTIFY_CLIENT_SECRET;
 
       // eslint-disable-next-line @typescript-eslint/no-var-requires
       AppConfig = require('@infrastructure/data/app-config').AppConfig;
@@ -97,8 +118,20 @@ describe('AppConfig', () => {
       expect(AppConfig.youtube.token).toBe('');
     });
 
-    it('defines spotify token with default value', async () => {
-      expect(AppConfig.spotify.token).toBe('');
+    it('defines spotify url with default value', async () => {
+      expect(AppConfig.spotify.url).toBe('');
+    });
+
+    it('defines spotify token url with default value', async () => {
+      expect(AppConfig.spotify.tokenUrl).toBe('');
+    });
+
+    it('defines spotify client id with default value', async () => {
+      expect(AppConfig.spotify.clientId).toBe('');
+    });
+
+    it('defines spotify client secret with default value', async () => {
+      expect(AppConfig.spotify.clientSecret).toBe('');
     });
   });
 });

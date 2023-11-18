@@ -25,6 +25,7 @@ $ script/server   # runs application
 $ script/update   # keeps application up to date
 $ script/test     # run tests of the application
 $ script/lint     # runs lint tool on application
+$ script/quality  # runs quality tool on application (CodeClimate)
 $ script/bash     # access bash into container
 ```
 

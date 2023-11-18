@@ -39,45 +39,47 @@ export default class SpotifyMediaSearchProvider implements MediaProviderStrategy
   }
 
   private async getAuthenticationToken(): Promise<string> {
-    const currentTimestamp = new Date().getTime();
-
-    if (
-      !SpotifyMediaSearchProvider.currentAuthenticationToken ||
-      !SpotifyMediaSearchProvider.nextTokenExpirationTimestamp ||
-      SpotifyMediaSearchProvider.nextTokenExpirationTimestamp <= currentTimestamp
-    ) {
-      await fetch(this.appConfig.spotify.tokenUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: `grant_type=client_credentials&client_id=${this.appConfig.spotify.clientId}&client_secret=${this.appConfig.spotify.clientSecret}`,
-      })
-        .then((response: Response) =>
-          response
-            .json()
-            .then((spotifyTokenResponse: SpotifyResponseToken | SpotifyResponseError) => {
-              if ((spotifyTokenResponse as SpotifyResponseError).error) {
-                throw new SpotifyProviderError(
-                  (spotifyTokenResponse as SpotifyResponseError).error,
-                );
-              } else {
-                const expiresIn = (spotifyTokenResponse as SpotifyResponseToken).expires_in;
-
-                SpotifyMediaSearchProvider.nextTokenExpirationTimestamp =
-                  currentTimestamp + (expiresIn - 10) * 1000;
-                SpotifyMediaSearchProvider.currentAuthenticationToken = (
-                  spotifyTokenResponse as SpotifyResponseToken
-                ).access_token;
-              }
-            }),
-        )
-        .catch((e) => {
-          throw new SpotifyProviderError(e);
-        });
+    if (this.needsAuthentication()) {
+      this.updateToken();
     }
 
     return SpotifyMediaSearchProvider.currentAuthenticationToken!;
+  }
+
+  private needsAuthentication(): boolean {
+    return (
+      !SpotifyMediaSearchProvider.currentAuthenticationToken ||
+      !SpotifyMediaSearchProvider.nextTokenExpirationTimestamp ||
+      SpotifyMediaSearchProvider.nextTokenExpirationTimestamp <= new Date().getTime()
+    );
+  }
+
+  private async updateToken(): Promise<void> {
+    await fetch(this.appConfig.spotify.tokenUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `grant_type=client_credentials&client_id=${this.appConfig.spotify.clientId}&client_secret=${this.appConfig.spotify.clientSecret}`,
+    })
+      .then((response: Response) =>
+        response
+          .json()
+          .then((spotifyTokenResponse: SpotifyResponseToken | SpotifyResponseError) => {
+            if ((spotifyTokenResponse as SpotifyResponseError).error) {
+              throw new SpotifyProviderError((spotifyTokenResponse as SpotifyResponseError).error);
+            } else {
+              const expiresIn = (spotifyTokenResponse as SpotifyResponseToken).expires_in;
+
+              SpotifyMediaSearchProvider.nextTokenExpirationTimestamp =
+                new Date().getTime() + (expiresIn - 10) * 1000;
+              SpotifyMediaSearchProvider.currentAuthenticationToken = (
+                spotifyTokenResponse as SpotifyResponseToken
+              ).access_token;
+            }
+          }),
+      )
+      .catch((e) => {
+        throw new SpotifyProviderError(e);
+      });
   }
 
   private mapSpotifyResponseToApplicationFormat(spotifyResponseItem: SpotifyResponseItem): Media {

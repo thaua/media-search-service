@@ -60,13 +60,51 @@ flowchart TD
 - **infrastructure:** Infrastructure setup such as data providers, external connections and overall configuration.
 - **presentation:** Entrypoint with routing, controllers and REST API framework.
 
-## Technical Details
+## Request Examples
 
-- Languages and runtimes: `JavaScript - TypeScript - Node.JS`;
-- Backend Framework: `ExpressJS`;
-- Architecture: `Backend Application - Clean Architecture - REST API`;
-- Methodologies, principles and
-  practices: `Design Patterns - Test-Driven Development (TDD) - Clean Code - SOLID - YAGNI - KISS`.
+###### Request
+`{{mediaSearchUrl}}/provider/youtube/search?term=iron%20maiden`
+
+###### Response
+```
+[
+    {
+        "code": "X4bgXH3sJ2Q",
+        "title": "Iron Maiden - The Trooper (Official Video)",
+        "thumbnail": "https://i.ytimg.com/vi/X4bgXH3sJ2Q/default.jpg",
+        "time": 0
+    },
+    {
+        "code": "BrrO2q9VwRM",
+        "title": "Best Of Iron Maiden - Greatest Hits full Album - Vol. 04",
+        "thumbnail": "https://i.ytimg.com/vi/BrrO2q9VwRM/default.jpg",
+        "time": 0
+    },
+    ...
+]
+```
+
+###### Request
+`{{mediaSearchUrl}}/provider/spotify/search?term=hammerfall`
+
+###### Response
+```
+[
+    {
+        "code": "0eV3PB3T0OxW4feG1DlOjQ",
+        "title": "HammerFall - Hearts on Fire",
+        "thumbnail": "https://i.scdn.co/image/ab67616d00004851bceefa541bb181ec0b8d32e4",
+        "time": 0
+    },
+    {
+        "code": "18cs5UrDMRFyU74Mfdagwf",
+        "title": "HammerFall - The Way of the Warrior",
+        "thumbnail": "https://i.scdn.co/image/ab67616d00004851f9354765b1904289474c7860",
+        "time": 0
+    },
+    ...
+]
+```
 
 ## Stay in touch
 

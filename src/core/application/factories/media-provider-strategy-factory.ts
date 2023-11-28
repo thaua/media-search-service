@@ -1,7 +1,7 @@
-import { MediaProviderType } from '@domain/media-provider.type';
-import MediaProviderStrategy from '@application/strategies/media-provider-strategy.interface';
-import { ProviderListType } from '@domain/provider-list.type';
-import { Config } from '@infrastructure/data/interfaces/config.interface';
+import { MediaProviderType } from '@application/types/media-provider.type';
+import MediaProviderStrategy from '@application/interfaces/media-provider-strategy.interface';
+import { ProviderListType } from '@application/types/provider-list.type';
+import { Config } from '@application/interfaces/config.interface';
 
 export default class MediaProviderStrategyFactory {
   constructor(

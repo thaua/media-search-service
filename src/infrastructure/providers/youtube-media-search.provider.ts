@@ -1,6 +1,6 @@
-import MediaProviderStrategy from '@application/strategies/media-provider-strategy.interface';
+import MediaProviderStrategy from '@application/interfaces/media-provider-strategy.interface';
 import Media from '@domain/media';
-import { Config } from '@infrastructure/data/interfaces/config.interface';
+import { Config } from '@application/interfaces/config.interface';
 import { YoutubeResponse } from '@infrastructure/providers/interfaces/youtube-response.interface';
 import { YoutubeResponseItem } from '@infrastructure/providers/interfaces/youtube-response-item.interface';
 import { YoutubeProviderError } from '@infrastructure/providers/exceptions/youtube-provider.error';

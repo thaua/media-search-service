@@ -1,4 +1,4 @@
-import { AttributeLengthUseCaseError } from '@application/usecases/exceptions/attribute-length.use-case-error';
+import { AttributeLengthUseCaseError } from '@application/exceptions/attribute-length.use-case-error';
 
 describe('AttributeLengthUseCaseError', () => {
   let error: AttributeLengthUseCaseError;

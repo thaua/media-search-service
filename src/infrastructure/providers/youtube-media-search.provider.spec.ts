@@ -1,5 +1,5 @@
 import YoutubeMediaSearchProvider from '@infrastructure/providers/youtube-media-search.provider';
-import { Config } from '@infrastructure/data/interfaces/config.interface';
+import { Config } from '@application/interfaces/config.interface';
 import Media from '@domain/media';
 import { YoutubeResponse } from '@infrastructure/providers/interfaces/youtube-response.interface';
 import { YoutubeProviderError } from '@infrastructure/providers/exceptions/youtube-provider.error';

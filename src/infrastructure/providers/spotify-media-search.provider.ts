@@ -1,6 +1,6 @@
-import MediaProviderStrategy from '@application/strategies/media-provider-strategy.interface';
+import MediaProviderStrategy from '@application/interfaces/media-provider-strategy.interface';
 import Media from '@domain/media';
-import { Config } from '@infrastructure/data/interfaces/config.interface';
+import { Config } from '@application/interfaces/config.interface';
 import { SpotifyResponseToken } from '@infrastructure/providers/interfaces/spotify-response-token.interface';
 import { SpotifyResponseError } from '@infrastructure/providers/interfaces/spotify-response-error.interface';
 import { SpotifyProviderError } from '@infrastructure/providers/exceptions/spotify-provider.error';

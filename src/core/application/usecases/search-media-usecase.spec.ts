@@ -1,9 +1,9 @@
 import Media from '@domain/media';
 import SearchMediaUseCase from './search-media-usecase';
 import { AppConfig } from '@infrastructure/data/app-config';
-import { RequiredAttributeUseCaseError } from '@application/usecases/exceptions/required-attribute.use-case-error';
-import { AttributeLengthUseCaseError } from '@application/usecases/exceptions/attribute-length.use-case-error';
-import { InvalidProviderUseCaseError } from '@application/usecases/exceptions/invalid-provider.use-case-error';
+import { RequiredAttributeUseCaseError } from '@application/exceptions/required-attribute.use-case-error';
+import { AttributeLengthUseCaseError } from '@application/exceptions/attribute-length.use-case-error';
+import { InvalidProviderUseCaseError } from '@application/exceptions/invalid-provider.use-case-error';
 
 const mockedMediaProviderStrategyFactory: any = {
   createProvider: jest.fn(),

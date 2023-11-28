@@ -1,5 +1,5 @@
 import MediaProviderStrategyFactory from '@application/factories/media-provider-strategy-factory';
-import { Config } from '@infrastructure/data/interfaces/config.interface';
+import { Config } from '@application/interfaces/config.interface';
 
 const MockedMediaProviderStrategy1 = jest.fn();
 const MockedMediaProviderStrategy2 = jest.fn();

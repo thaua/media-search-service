@@ -1,5 +1,5 @@
 import SpotifyMediaSearchProvider from '@infrastructure/providers/spotify-media-search.provider';
-import { Config } from '@infrastructure/data/interfaces/config.interface';
+import { Config } from '@application/interfaces/config.interface';
 import { SpotifyResponseItem } from '@infrastructure/providers/interfaces/spotify-response-item.interface';
 import { SpotifyResponseItemArtist } from '@infrastructure/providers/interfaces/spotify-response-item-artist.interface';
 import { SpotifyResponseItemThumbnail } from '@infrastructure/providers/interfaces/spotify-response-item-thumbnail.interface';

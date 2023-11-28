@@ -1,4 +1,4 @@
-import { UseCaseError } from '../../../exceptions/use-case.error';
+import { UseCaseError } from '../../exceptions/use-case.error';
 
 export class AttributeLengthUseCaseError extends UseCaseError {
   constructor(

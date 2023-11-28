@@ -1,11 +1,11 @@
 import Media from '@domain/media';
-import { MediaProviderType } from '@domain/media-provider.type';
+import { MediaProviderType } from '@application/types/media-provider.type';
 import MediaProviderStrategyFactory from '@application/factories/media-provider-strategy-factory';
-import { Config } from '@infrastructure/data/interfaces/config.interface';
-import { RequiredAttributeUseCaseError } from '@application/usecases/exceptions/required-attribute.use-case-error';
-import { AttributeLengthUseCaseError } from '@application/usecases/exceptions/attribute-length.use-case-error';
-import MediaProviderStrategy from '@application/strategies/media-provider-strategy.interface';
-import { InvalidProviderUseCaseError } from '@application/usecases/exceptions/invalid-provider.use-case-error';
+import { Config } from '@application/interfaces/config.interface';
+import { RequiredAttributeUseCaseError } from '@application/exceptions/required-attribute.use-case-error';
+import { AttributeLengthUseCaseError } from '@application/exceptions/attribute-length.use-case-error';
+import MediaProviderStrategy from '@application/interfaces/media-provider-strategy.interface';
+import { InvalidProviderUseCaseError } from '@application/exceptions/invalid-provider.use-case-error';
 
 export default class SearchMediaUseCase {
   constructor(

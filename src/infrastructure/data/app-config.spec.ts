@@ -1,4 +1,4 @@
-import { Config } from '@infrastructure/data/interfaces/config.interface';
+import { Config } from '@application/interfaces/config.interface';
 
 describe('AppConfig', () => {
   beforeEach(() => {

@@ -1,4 +1,4 @@
-import { ProviderListType } from '@domain/provider-list.type';
+import { ProviderListType } from '@application/types/provider-list.type';
 
 export default class ListProviderUseCase {
   constructor(private readonly providers: ProviderListType) {}

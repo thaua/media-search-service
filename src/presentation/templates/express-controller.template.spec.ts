@@ -1,5 +1,4 @@
 import express from 'express';
-import { HttpResponseError } from '@presentation/response/http-response-error';
 import { ExpressControllerTemplate } from '@presentation/templates/express-controller.template';
 import { UseCaseError } from '../../core/exceptions/use-case.error';
 import { InfrastructureError } from '@infrastructure/exceptions/infrastructure.error';
@@ -10,8 +9,19 @@ class MockExpressController extends ExpressControllerTemplate<any> {
   }
 }
 
-class MockedUseCaseError extends UseCaseError {}
-class MockedInfrastructureError extends InfrastructureError {}
+class MockedUseCaseError extends UseCaseError {
+  constructor() {
+    super('Mocked UseCase Error.');
+    this.name = 'MockedUseCaseError';
+  }
+}
+
+class MockedInfrastructureError extends InfrastructureError {
+  constructor(public readonly details: Error) {
+    super('Mocked Infrastructure Error.', details);
+    this.name = 'MockedInfrastructureError';
+  }
+}
 
 describe('ExpressControllerTemplate', () => {
   let mockExpressController: MockExpressController;
@@ -36,7 +46,7 @@ describe('ExpressControllerTemplate', () => {
   });
 
   it('should handle UseCaseError and return a 400 response', async () => {
-    const useCaseError = new MockedUseCaseError('Error message');
+    const useCaseError = new MockedUseCaseError();
 
     jest.spyOn(mockExpressController, 'executeUseCase').mockImplementation(() => {
       throw useCaseError;
@@ -45,16 +55,14 @@ describe('ExpressControllerTemplate', () => {
     await mockExpressController.handle(mockRequest, mockResponse);
 
     expect(mockResponse.status).toHaveBeenCalledWith(400);
-    expect(mockResponse.json).toHaveBeenCalledWith(new HttpResponseError(useCaseError));
+    expect(mockResponse.json).toHaveBeenCalledWith({
+      error: { message: 'Mocked UseCase Error.', name: 'MockedUseCaseError' },
+    });
   });
 
   it('should handle InfrastructureError and return a 502 response', async () => {
     const mockedErrorDetails = new Error('test');
-    const mockedErrorMessage = 'Error message';
-    const infrastructureError = new MockedInfrastructureError(
-      mockedErrorMessage,
-      mockedErrorDetails,
-    );
+    const infrastructureError = new MockedInfrastructureError(mockedErrorDetails);
 
     jest.spyOn(mockExpressController, 'executeUseCase').mockImplementation(() => {
       throw infrastructureError;
@@ -63,7 +71,9 @@ describe('ExpressControllerTemplate', () => {
     await mockExpressController.handle(mockRequest, mockResponse);
 
     expect(mockResponse.status).toHaveBeenCalledWith(502);
-    expect(mockResponse.json).toHaveBeenCalledWith(new HttpResponseError(infrastructureError));
+    expect(mockResponse.json).toHaveBeenCalledWith({
+      error: { message: 'Mocked Infrastructure Error.', name: 'MockedInfrastructureError' },
+    });
   });
 
   it('should handle other exceptions and return a 500 response', async () => {
@@ -75,9 +85,9 @@ describe('ExpressControllerTemplate', () => {
     await mockExpressController.handle(mockRequest, mockResponse);
 
     expect(mockResponse.status).toHaveBeenCalledWith(500);
-    expect(mockResponse.json).toHaveBeenCalledWith(
-      new HttpResponseError({ message: 'Internal Server Error.' } as Error),
-    );
+    expect(mockResponse.json).toHaveBeenCalledWith({
+      error: { message: 'Internal Server Error.' },
+    });
     expect(console.error).toHaveBeenCalledWith(otherError);
   });
 });

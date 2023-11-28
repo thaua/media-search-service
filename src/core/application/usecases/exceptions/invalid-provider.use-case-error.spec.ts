@@ -1,4 +1,4 @@
-import { InvalidProviderUseCaseError } from '@application/exceptions/invalid-provider.use-case-error';
+import { InvalidProviderUseCaseError } from '@application/usecases/exceptions/invalid-provider.use-case-error';
 
 describe('InvalidProviderUseCaseError', () => {
   it('should create an error message for a missing attribute', () => {

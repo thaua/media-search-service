@@ -1,4 +1,4 @@
-import { RequiredAttributeUseCaseError } from '@application/exceptions/required-attribute.use-case-error';
+import { RequiredAttributeUseCaseError } from '@application/usecases/exceptions/required-attribute.use-case-error';
 
 describe('RequiredAttributeUseCaseError', () => {
   it('should create an error message for a missing attribute', () => {

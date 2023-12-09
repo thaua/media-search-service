@@ -1,12 +1,12 @@
-import * as core from 'express-serve-static-core';
-import express from 'express';
+import SearchMediaUseCase from '@application/usecases/search-media-usecase';
 import { AppConfig } from '@infrastructure/data/app-config';
-import { appRouter } from '@presentation/routes/app.router';
+import MediaProviderStrategyFactory from '@application/factories/media-provider-strategy-factory';
+import { Providers } from '@infrastructure/data/providers';
+import { expressServer } from '@presentation/express/server';
 
-const app: core.Express = express();
+export const searchMediaUseCase = new SearchMediaUseCase(
+  AppConfig,
+  new MediaProviderStrategyFactory(AppConfig, Providers),
+);
 
-app.use('/', appRouter);
-
-app.listen(AppConfig.serverPort, () => {
-  console.info(`Server running at http://localhost:${AppConfig.serverPort}`);
-});
+expressServer(searchMediaUseCase);

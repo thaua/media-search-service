@@ -60,6 +60,10 @@ flowchart TD
 - **infrastructure:** Infrastructure setup such as data providers, external connections and overall configuration.
 - **presentation:** Entrypoint with routing, controllers and REST API framework.
 
+#### Motivation
+
+The reason to use this architecture is to get the base idea of Clean Architecture separating **core** and **infrastructure** layers in order to keep separation of concerns and maintainability frequency separated (**CCP - Common Closure Principle**). Since it is a very small service with a few routes, the idea is to keep the presentation layer as the simple one being very close to the use case calling (layer with business logic).
+
 ## Request Examples
 
 ###### Request
